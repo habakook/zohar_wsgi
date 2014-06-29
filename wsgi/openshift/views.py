@@ -23,7 +23,7 @@ RESOURCES = ['Сефер Ецира',
 ALEPHBET = u'[אבגדהוזחטיכךלמםנןסעפףצץקרשתﭏ]'
 
 def home(request):
-    return render('home/home.html')
+    return render(request, 'home/home.html')
 
 def index(request):
     debug = []
