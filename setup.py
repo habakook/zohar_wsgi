@@ -9,7 +9,7 @@ if 'REDISCLOUD_URL' in os.environ and 'REDISCLOUD_PORT' in os.environ and 'REDIS
      packages.append('django-redis-cache')
      packages.append('hiredis')
 
-setup(name='YourAppName',
+setup(name='Rodion',
       version='1.0',
       description='OpenShift App',
       author='Your Name',

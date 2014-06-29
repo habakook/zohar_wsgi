@@ -1,0 +1,8 @@
+{% extends "zohar/core.html" %}
+
+{% block content %}
+    <a href="/zohar"><-- все книги</a>
+    {% for verse in book %}
+        <p id="verse">{{verse |safe}}</p>
+    {% endfor %}
+{% endblock %}

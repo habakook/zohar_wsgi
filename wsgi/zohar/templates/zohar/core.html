@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        
+        <link rel="shortcut icon" href="{% static 'zohar/images/favicon.ico' %}">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="{% static 'zohar/css/style.css' %}" />
+            <title>Зоhар</title>
+        <script type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <!--span xml:lang="he" lang="he" class="ezra"-->
+        
+        <div id="framecontent">
+            <div class="innertube">
+                
+                <h1 id="title"><span xml:lang="he" lang="he" class="ezra">שָׁלוֺם עוֺלָם</span></h1>
+                <form name="input" action="/zohar" method="get">
+                    <h3>Поиск:</h3>
+                    <input type="text" name="criteria" size="30" value="{{value}}"></br>
+                    <span id='f_filter_div'>
+                        <input type='radio' name='filter' value='filter_1' /> Искать точную фразу<br />    
+                        <input type='radio' name='filter' value='filter_2' /> Искать хотя бы одно слово<br />    
+                        <input type='radio' name='filter' value='filter_3' /> Различать регистр букв<br />    
+                        <input type='radio' name='filter' value='filter_4' /> Не может быть частью слов<br />
+                    </span>
+                    <input type="submit" value="Найти">
+                </form>
+                
+            </div>
+        </div>
+        
+        
+        <div id="maincontent">
+            <div class="innertube">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <span xml:lang="he" lang="he" class="ezra">
+        </span>
+    </body>
+</html>
+
+
