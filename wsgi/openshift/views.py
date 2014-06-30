@@ -66,7 +66,7 @@ def book(request, book_number):
                         book.append(l)
     
     context = {'book':book, 'debug':debug, 'debug2':debug2}
-    return render(request, 'zohar/book.html', context)
+    return render(request, 'home/book.html', context)
 
 
 def search(words, filter):
