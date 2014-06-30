@@ -109,7 +109,7 @@ def search(words, filter):
                     for word in key_words:
                         pattern = set_pattern(word, filter)
                         line = pattern.sub('<span class="highlightme">'+'\g<0>'+'</span>',line)
-                    verse_list.append('<a href="/zohar/'+ind+'"><b>'+title+'</b></a></br>'+line)
+                    verse_list.append('<a href="/'+ind+'"><b>'+title+'</b></a></br>'+line)
     
     return verse_list
 
