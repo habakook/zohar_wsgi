@@ -5,8 +5,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'views.home', name='home'),
-    url(r'^zohar/', 'views.index', name='index'),
+    #url(r'^$', 'views.home', name='home'),
+    url(r'^$', 'views.index', name='index'),
     # ex: /zohar/5/
     url(r'^(?P<book_number>\d+)/$', 'views.book', name='view_book'),
 
