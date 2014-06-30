@@ -37,7 +37,7 @@ def index(request):
         count = len(found_verses)
     
     context = {'what': RESOURCES, 'found_verses': found_verses, 'count': count, 'value': value}
-    return render(request, 'zohar/main.html', context)
+    return render(request, 'home/main.html', context)
 
 
 def book(request, book_number):
