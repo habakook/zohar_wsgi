@@ -1,0 +1,78 @@
+body{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    height: 100%; 
+    max-height: 100%;
+    font: 13px verdana, san serif;
+}
+
+#framecontent{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background: url('../images/Melamine-wood-005.png');
+} 
+
+#framecontent:after{
+    content: '';
+    position: absolute;
+    width: 250px;
+    height: 448px;
+    bottom:0px;
+    background: url("../images/gerb_opac67_400.png");
+}
+
+#maincontent{
+    position: fixed;
+    top: 0; 
+    left: 250px; /*Set left value to WidthOfFrameDiv*/
+    right: 0;
+    bottom: 0;
+    overflow: auto; 
+    background: #fff;
+}
+
+.innertube{
+    margin: 15px; /*Margins for inner DIV inside each DIV (to provide padding)*/
+}
+
+* html body{ /*IE6 hack*/
+    padding: 0 0 0 200px; /*Set value to (0 0 0 WidthOfFrameDiv)*/
+}
+
+* html #maincontent{ /*IE6 hack*/
+    height: 100%; 
+    width: 100%; 
+}
+
+.highlightme { 
+    background-color:#FFFF00; 
+}
+
+@font-face {
+	font-family: 'Ezra SIL SR';
+	src: url('../fonts/ezrasilsr-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/ezrasilsr-webfont.woff') format('woff'), 
+    url('../fonts/ezrasilsr-webfont.ttf')  format('truetype'),
+    url('../fonts/ezrasilsr-webfont.svg#EzraSILSR') format('svg');
+}
+
+:lang(he) {
+    font-size: 110%; 
+    direction:rtl;
+    font-family:'Ezra SIL SR', 'Taamey Frank CLM', 'Taamey David CLM', 'Keter YG', 'Keter Aram Sova', 'Ezra SIL', 'Cardo', serif;
+}
+
+#title{
+    text-align:center;
+    font-weight:900;
+}
+
+#verse{
+    text-align:justify;
+}
