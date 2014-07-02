@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from zohar import views
+import views
 from django.contrib import admin
 
 admin.autodiscover()
