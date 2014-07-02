@@ -22,9 +22,6 @@ RESOURCES = ['Сефер Ецира',
 
 ALEPHBET = u'[אבגדהוזחטיכךלמםנןסעפףצץקרשתﭏ]'
 
-def home(request):
-    return render(request, 'home/home.html')
-
 def index(request):
     debug = []
     found_verses = []
