@@ -3,14 +3,14 @@
 {% block content %}
 
     {% if value != '' %}
-        <a href="/"><-- все книги</a>
+        <a  href="/"><-- все книги</a>
         <p>Стихов найдено: {{count}} </p>
 
         {% for verse in found_verses %}
             <p id="verse">{{verse |safe}}</p>
         {% endfor %}
     {% elif book != '' %}
-        <a href="/"><-- все книги</a>
+        <a  href="/"><-- все книги</a>
         {% for verse in book %}
             <p id="verse">{{verse |safe}}</p>
         {% endfor %}
@@ -25,21 +25,21 @@
                 <tr>
                     <td colspan="2" rowspan="3"></td>
                     <td colspan="2" align="center">
-                        <a href="/?title_lib1=Сефер Ецира">Сефер Ецира</a>
+                        <a  href="/?title_lib1=Сефер Ецира">Сефер Ецира</a>
                     </td>  
                 </tr> 
                 <tr>
                     <td colspan="2" align="center">
-                        <a href="/?title_lib1=Бахир">Бахир</a>
+                        <a  href="/?title_lib1=Бахир">Бахир</a>
                     </td>  
                 </tr>  
                 <tr>
                     <td>
-                        <a href="/?title_lib1=Зоhар hакдама">Зоhар hакдама</a> 
+                        <a  href="/?title_lib1=Зоhар hакдама">Зоhар hакдама</a> 
                     </td>
                     <td>
-                        <a href="/?title_lib2=Зоhар Акдамат I">Зоhар Акдамат I</a></br>
-                        <a href="/?title_lib2=Зоhар Акдамат II">Зоhар Акдамат II</a>
+                        <a  href="/?title_lib2=Зоhар Акдамат I">Зоhар Акдамат I</a></br>
+                        <a  href="/?title_lib2=Зоhар Акдамат II">Зоhар Акдамат II</a>
                     </td>
                 </tr>  
                 {% for line in master_map %}
@@ -48,12 +48,12 @@
                     <td>{{line.1}}</td>
                     <td>
                         {% for book in line.2 %}
-                            <a href="/?title_lib1={{book}}">{{book}}</a></br>
+                            <a  href="/?title_lib1={{book}}">{{book}}</a></br>
                         {% endfor %}
                     </td>
                     <td>
                         {% for book in line.3 %}
-                            <a href="/?title_lib2={{book}}">{{book}}</a></br>
+                            <a  href="/?title_lib2={{book}}">{{book}}</a></br>
                         {% endfor %}
                     </td>
                 </tr>
