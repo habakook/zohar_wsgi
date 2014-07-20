@@ -45,7 +45,8 @@ def index(request):
 def get_book(docs,title):
     debug = []
     book=[]
-    pattern = re.compile(ALEPHBET, re.UNICODE)
+    hebrew_pattern = re.compile(ALEPHBET, re.UNICODE)
+    footnote_pattern = re.compile(ur'\[\d{1,4}\]', re.UNICODE)
     title = unicodedata.normalize('NFC', title)
     for doc in docs:
         with io.open(doc, 'r', encoding='utf-8-sig') as doc:
@@ -60,9 +61,19 @@ def get_book(docs,title):
                     
                     for l in doc:
                         
-                        found = pattern.search(l)
+                        #find all hebrew and bold them
+                        found = hebrew_pattern.search(l)
                         if found:
-                            l = pattern.sub('<span xml:lang="he" lang="he" class="ezra">'+'\g<0>'+'</span>',l)
+                            l = hebrew_pattern.sub('<span xml:lang="he" lang="he" class="ezra">'+'\g<0>'+'</span>',l)
+                        
+                        #find all footnotes and link them
+                        found = footnote_pattern.search(l)
+                        if found:
+                            if l.startswith('['):
+                                l = footnote_pattern.sub('<a id="cite_note-\g<0>" href="#cite_ref-\g<0>">&uarr;</a> \g<0> ',l)
+                            else:
+                                l = footnote_pattern.sub('<sup id="cite_ref-\g<0>"><a href="#cite_note-\g<0>">\g<0></a></sup>',l)
+                        
                         book.append(l)
     
     return debug, book
@@ -90,7 +101,6 @@ def search(words, main_lib, filter):
                 if get_title:
                     title = line
                     get_title = False
-                    #ind = which_book(title)
                     continue
                 
                 if len(key_words)>1:
@@ -111,13 +121,6 @@ def search(words, main_lib, filter):
                     verse_list.append('<a href="/?'+which_lib+'='+title+'"><b>'+title+'</b></a></br>'+line)
     
     return verse_list
-
-def which_book(title):
-    i = 0
-    for book in RESOURCES_2:
-        i += 1
-        if book.decode('utf-8-sig') == title.strip():
-            return str(i)
 
 def set_pattern(key, filter):
     if filter == 'filter_1' or filter == 'filter_2':
@@ -159,7 +162,7 @@ MASTER_MAP = [('בְּרֵאשִׁית',	'Берешит', ['Зоhар Брей�
               ('שְׁמוֹת	', 'Шмот', [],['Зоhар Шемот']),
               ('וָאֵרָא	', 'Ва-Эра', [],['Зоhар Ва-Эра']),
               ('בֹּא	', 'Бо', [],['Зоhар Бо']),
-              ('בְּשַׁלַּח	', 'Бе-Шаллах', [],['Зоhар Бешалах']),
+              ('בְּשַׁלַּח	', 'Бе-Шаллах', [],['Зоhар Бешалах II']),
               ('יִתְרוֹ	', 'Итро', [],['Зоhар Итро I','Зоhар Итро II','Зоhар Итро III']),
               ('מִשְׁפָּטִים	', 'Мишпатим', [],['Зоhар Мишпатим I','Зоhар Мишпатим II']),
               ('תְּרוּמָה	', 'Трума', [],['Зоhар Трума I','Зоhар Трума II']),
@@ -199,6 +202,7 @@ MASTER_MAP = [('בְּרֵאשִׁית',	'Берешит', ['Зоhар Брей�
               ('הַאֲזִינוּ	', 'Хаазину', [],[]),
               ('וְזֹאת הַבְּרָכָה	', 'Ве-Зот ха-браха', [],[])]
 
+"""
 RESOURCES = ['Сефер Ецира',
              'Бахир',
              '﻿Зоhар hакдама',
@@ -259,7 +263,7 @@ RESOURCES_2 = ['Зоhар Корах',
                'Зоhар Шмини',
                'Зоhар Шофтим',
                'Зоhар Экев']
-"""
+
 def book(request, book_number):
     debug = 0
     debug2 = []
