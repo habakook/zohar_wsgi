@@ -47,7 +47,7 @@ def get_book(docs,title):
     book=[]
     hebrew_pattern = re.compile(ALEPHBET, re.UNICODE)
     footnote_pattern = re.compile(ur'\[\d{1,4}\]', re.UNICODE)
-    title = unicodedata.normalize('NFC', title)
+    #title = unicodedata.normalize('NFC', title)
     for doc in docs:
         with io.open(doc, 'r', encoding='utf-8-sig') as doc:
             
