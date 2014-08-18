@@ -1,9 +1,7 @@
 {% extends "zohar/core.html" %}
 
 {% block content %}
-{% for verse in debug %}
-    <p>{{verse |safe}}</p>
-{% endfor %}
+
     {% if value != '' %}
         <a  href="/"><-- все книги</a>
         <p>Стихов найдено: {{count}} </p>
