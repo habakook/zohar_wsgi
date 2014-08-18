@@ -23,6 +23,7 @@ def index(request):
     book=''
     docs=1
     
+    
     if lib != '':
         main_lib = True if lib=='lib1' else False 
     
