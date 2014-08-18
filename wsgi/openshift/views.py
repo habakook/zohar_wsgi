@@ -30,7 +30,7 @@ def index(request):
         title_lib1 = title_lib1[1:]
     
     if value != '':
-        found_verses = search(value, main_lib, filter)
+        debug = search(value, main_lib, filter)
         count = len(found_verses)
     elif title_lib1 != '':
         docs = list_of_resources(True)
@@ -39,7 +39,9 @@ def index(request):
         docs = list_of_resources(False)
         debug, book = get_book(docs,title_lib2)
     
-    context = {'found_verses':found_verses, 'count':count, 'value':value, 'master_map':MASTER_MAP, 'book':book, 'debug':debug, 'debug2':debug2}
+    length = get_len_of_dict_content(RESULTS)
+
+    context = {'found_verses':RESULTS, 'count':length, 'value':value, 'master_map':MASTER_MAP, 'book':book, 'debug':debug, 'debug2':debug2}
     return render(request, 'zohar/main.html', context)
 
 def get_book(docs,title):
@@ -79,8 +81,11 @@ def get_book(docs,title):
     return debug, book
 
 def search(words, main_lib, filter):
-    verse_list = []
     key_words = []
+    debug = []
+
+    for book in BOOKS:
+        RESULTS[book]=[]
     
     docs = list_of_resources(main_lib)
     which_lib = 'title_lib1' if main_lib else 'title_lib2'
@@ -118,9 +123,14 @@ def search(words, main_lib, filter):
                     for word in key_words:
                         pattern = set_pattern(word, filter)
                         line = pattern.sub('<span class="highlightme">'+'\g<0>'+'</span>',line)
-                    verse_list.append('<a href="/?'+which_lib+'='+title+'"><b>'+title+'</b></a></br>'+line)
+
+                    try:
+                        RESULTS[title.rstrip().encode("utf-8")].append('<a href="/?'+which_lib+'='+title+'"><b>'+title+'</b></a></br>'+line)
+                    except:
+                        RESULTS[title.rstrip().encode("utf-8")]=[]
+                        RESULTS[title.rstrip().encode("utf-8")].append('<a href="/?'+which_lib+'='+title+'"><b>'+title+'</b></a></br>'+line)
     
-    return verse_list
+    return debug
 
 def set_pattern(key, filter):
     if filter == 'filter_1' or filter == 'filter_2':
@@ -146,6 +156,12 @@ def list_of_resources(main_lib=True):
             res.append(os.path.join(docs_dir,doc))
     
     return res
+
+def get_len_of_dict_content(dict):
+    length = 0
+    for k,v in dict.items():
+        length+=len(v)
+    return length
 
 MASTER_MAP = [('בְּרֵאשִׁית',	'Берешит', ['Зоhар Брейшит I','Зоhар Брейшит II'],['Зоhар Брейшит']),
               ('נֹחַ	', 'Ноах', ['Зоhар Ноах'],['Зоhар Ноах']),
@@ -201,6 +217,66 @@ MASTER_MAP = [('בְּרֵאשִׁית',	'Берешит', ['Зоhар Брей�
               ('וַיֵּלֶך	', 'Ва-Иелех', [],[]),
               ('הַאֲזִינוּ	', 'Хаазину', [],[]),
               ('וְזֹאת הַבְּרָכָה	', 'Ве-Зот ха-браха', [],[])]
+
+RESULTS = collections.OrderedDict()
+
+BOOKS = ['Сефер Ецира',
+           'Бахир',
+           'Зоhар hакдама',
+           'Зоhар Акдамат I',
+           'Зоhар Акдамат II',
+           'Зоhар Брейшит',
+           'Зоhар Брейшит I',
+           'Зоhар Брейшит II',
+           'Зоhар Ноах',
+           'Зоhар Лех Леха',
+           'Зоhар Ва-йера',
+           'Зоhар Ва-йера',
+           'Зоhар Хайей Сара',
+           'Зоhар Хайей Сара',
+           'Зоhар Толдот',
+           'Зоhар Ва-йеце',
+           'Зоhар Ваеце',
+           'Зоhар Ва-йишлах',
+           'Зоhар Ваишлах',
+           '﻿Зоhар Ва-йешев',
+           'Зоhар Вейшев',
+           'Зоhар Ми-кец',
+           'Зоhар Микец',
+           'Зоhар Ваигаш',
+           'Зоhар Ваехи I',
+           'Зоhар Ваехи II',
+           'Зоhар Ваехи III',
+           'Зоhар Шемот',
+           'Зоhар Ва-Эра',
+           'Зоhар Бо',
+           'Зоhар Бешалах II',
+           'Зоhар Итро I',
+           'Зоhар Итро II',
+           'Зоhар Итро III',
+           'Зоhар Мишпатим I',
+           'Зоhар Мишпатим II',
+           'Зоhар Трума I',
+           'Зоhар Трума II',
+           'Зоhар Тецаве',
+           'Зоhар Ки Тиса',
+           'Зоhар Ваикаэль',
+           'Зоhар Пкудей',
+           'Зоhар Ваикра',
+           'Зоhар Цав I',
+           'Зоhар Цав II',
+           'Зоhар Шмини',
+           'Зоhар Тазриа',
+           'Зоhар Мецора',
+           'Зоhар Беhар',
+           'Зоhар Бехукотай',
+           'Зоhар Бемидбар',
+           'Зоhар Беhаалотеха',
+           'Зоhар Корах',
+           'Зоhар Хукат',
+           'Зоhар Экев',
+           'Зоhар Шофтим]'
+            ]
 
 """
 RESOURCES = ['Сефер Ецира',
