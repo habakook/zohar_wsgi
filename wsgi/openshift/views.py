@@ -5,6 +5,7 @@ import re
 import io
 import sys
 import unicodedata
+import collections
 
 
 ALEPHBET = u'[אבגדהוזחטיכךלמםנןסעפףצץקרשתﭏ]'
