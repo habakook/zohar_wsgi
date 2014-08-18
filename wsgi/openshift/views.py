@@ -41,7 +41,8 @@ def index(request):
         debug, book = get_book(docs,title_lib2)
     
     length = get_len_of_dict_content(RESULTS)
-    debug = (len([name for name in os.listdir(os.path.join(os.path.dirname(__file__),'lib1'))]),len([name for name in os.listdir(os.path.join(os.path.dirname(__file__),'lib2'))]))
+    #debug = (len([name for name in os.listdir(os.path.join(os.path.dirname(__file__),'lib1'))]),len([name for name in os.listdir(os.path.join(os.path.dirname(__file__),'lib2'))]))
+    debug = os.listdir(os.path.join(os.path.dirname(__file__),'lib1'))
     context = {'found_verses':RESULTS, 'count':length, 'value':value, 'master_map':MASTER_MAP, 'book':book, 'debug':debug, 'debug2':debug2}
     return render(request, 'zohar/main.html', context)
 
