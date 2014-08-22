@@ -165,8 +165,11 @@ def list_of_resources(main_lib=True):
 
 def get_len_of_dict_content(dict):
     length = 0
-    for k,v in dict.items():
-        length+=len(v)
+    try:
+        for k,v in dict.items():
+            length+=len(v)
+    except:
+        pass
     return length
 
 MASTER_MAP = [('בְּרֵאשִׁית',	'Берешит', ['Зоhар Брейшит I','Зоhар Брейшит II'],['Зоhар Брейшит']),
