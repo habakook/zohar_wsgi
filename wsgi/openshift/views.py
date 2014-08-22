@@ -9,7 +9,7 @@ import collections
 
 
 ALEPHBET = u'[אבגדהוזחטיכךלמםנןסעפףצץקרשתﭏ]'
-RESULTS = collections.OrderedDict()
+#RESULTS = collections.OrderedDict()
 
 def index(request):
     debug = []
@@ -33,7 +33,7 @@ def index(request):
         title_lib1 = title_lib1[1:]
     
     if value != '':
-        debug = search(value, main_lib, filter)
+        debug, found_verses = search(value, main_lib, filter)
         count = len(found_verses)
     elif title_lib1 != '':
         docs = list_of_resources(True)
@@ -42,9 +42,9 @@ def index(request):
         docs = list_of_resources(False)
         debug, book = get_book(docs,title_lib2)
     
-    length = get_len_of_dict_content(RESULTS)
+    length = get_len_of_dict_content(found_verses)
 
-    context = {'found_verses':RESULTS, 'count':length, 'value':value, 'master_map':MASTER_MAP, 'book':book, 'debug':debug, 'debug2':debug2}
+    context = {'found_verses':found_verses, 'count':length, 'value':value, 'master_map':MASTER_MAP, 'book':book, 'debug':debug, 'debug2':debug2}
     return render(request, 'zohar/main.html', context)
 
 def get_book(docs,title):
@@ -87,9 +87,10 @@ def get_book(docs,title):
 def search(words, main_lib, filter):
     key_words = []
     debug = []
+    found_verses = collections.OrderedDict()
 
     for book in BOOKS:
-        RESULTS[book]=[]
+        found_verses[book]=[]
     
     docs = list_of_resources(main_lib)
     which_lib = 'title_lib1' if main_lib else 'title_lib2'
@@ -130,12 +131,12 @@ def search(words, main_lib, filter):
                         line = pattern.sub('<span class="highlightme">'+'\g<0>'+'</span>',line)
 
                     try:
-                        RESULTS[title.rstrip().encode("utf-8")].append('<a href="/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
+                        found_verses[title.rstrip().encode("utf-8")].append('<a href="/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
                     except:
-                        RESULTS[title.rstrip().encode("utf-8")]=[]
-                        RESULTS[title.rstrip().encode("utf-8")].append('<a href="/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
+                        found_verses[title.rstrip().encode("utf-8")]=[]
+                        found_verses[title.rstrip().encode("utf-8")].append('<a href="/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
     
-    return debug
+    return debug, found_verses
 
 def set_pattern(key, filter):
     if filter == 'filter_1' or filter == 'filter_2':
