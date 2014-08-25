@@ -90,7 +90,7 @@ def search(words, main_lib, filter):
     found_verses = collections.OrderedDict()
 
     for book in BOOKS:
-        found_verses[book]=[]
+        found_verses[book.decode("utf-8-sig").encode("utf-8")]=[]
     
     docs = list_of_resources(main_lib)
     which_lib = 'title_lib1' if main_lib else 'title_lib2'
