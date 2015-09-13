@@ -110,7 +110,7 @@ def search(words, main_lib, filter):
             for line in doc:
                 line_number+=1
                 if get_title:
-                    title = line
+                    title = line.rstrip()
                     get_title = False
                     continue
                 
@@ -131,10 +131,10 @@ def search(words, main_lib, filter):
                         line = pattern.sub('<span class="highlightme">'+'\g<0>'+'</span>',line)
 
                     try:
-                        found_verses[title.rstrip().encode("utf-8")].append('<a href="/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
+                        found_verses[title.encode("utf-8")].append('<a href="/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
                     except:
-                        found_verses[title.rstrip().encode("utf-8")]=[]
-                        found_verses[title.rstrip().encode("utf-8")].append('<a href="/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
+                        found_verses[title.encode("utf-8")]=[]
+                        found_verses[title.encode("utf-8")].append('<a href="/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
     
     return debug, found_verses
 
@@ -183,7 +183,7 @@ MASTER_MAP = [('בְּרֵאשִׁית',	'Берешит', ['Зоhар Брей�
               ('וַיֵּשֶׁב	', 'Ва-Иешев', ['﻿Зоhар Ва-йешев'],['Зоhар Вейшев']),
               ('מִקֵּץ	', 'Ми-Кец', ['Зоhар Ми-кец'],['Зоhар Микец']),
               ('וַיִּגַּשׁ	', 'Ва-Йиггаш', ['Зоhар Ваигаш'],['Зоhар Ваигаш']),
-              ('וַיְחִי	', 'Ва-Иехи', [],['Зоhар Ваехи I','Зоhар Ваехи II','Зоhар Ваехи III']),
+              ('וַיְחִי	', 'Ва-Иехи', ['Зоhар Вайехи'],['Зоhар Ваехи I','Зоhар Ваехи II','Зоhар Ваехи III']),
               ('שְׁמוֹת	', 'Шмот', [],['Зоhар Шемот']),
               ('וָאֵרָא	', 'Ва-Эра', [],['Зоhар Ва-Эра']),
               ('בֹּא	', 'Бо', [],['Зоhар Бо']),
@@ -251,6 +251,7 @@ BOOKS = ['Сефер Ецира',
          'Зоhар Ми-кец',
          'Зоhар Микец',
          'Зоhар Ваигаш',
+         'Зоhар Вайехи',
          'Зоhар Ваехи I',
          'Зоhар Ваехи II',
          'Зоhар Ваехи III',
